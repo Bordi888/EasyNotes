@@ -1,0 +1,113 @@
+﻿<Page
+    x:Class="EasyNotes.PivotPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:EasyNotes"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:EasyNotes.Data"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition>
+                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    <CommonNavigationTransitionInfo IsStaggeringEnabled="True"/>
+                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+            </NavigationThemeTransition>
+        </TransitionCollection>
+    </Page.Transitions>
+
+    <Grid>
+        <Pivot x:Uid="Pivot" x:Name="pivot" CommonNavigationTransitionInfo.IsStaggerElement="True">
+            <!--Pivot item one-->
+            <PivotItem
+                x:Uid="PivotItem1"
+                Margin="19,14.5,0,0"
+                CommonNavigationTransitionInfo.IsStaggerElement="True">
+                <!--Double line list with text wrapping-->
+                <ListView
+                    x:Name="SimpleNotesList"
+                    IsItemClickEnabled="True"
+                    ItemClick="ItemView_ItemClick"
+                    Loaded="FirstPivot_Loaded"
+                    ItemsSource="{Binding}"
+                    ContinuumNavigationTransitionInfo.ExitElementContainer="True" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,0,0,9.5">
+                                <TextBlock
+                                    Text="{Binding Title}"
+                                    TextWrapping="Wrap"
+                                    Pivot.SlideInAnimationGroup="1"
+                                    CommonNavigationTransitionInfo.IsStaggerElement="True"
+                                    Style="{ThemeResource ListViewItemTextBlockStyle}"
+                                    Margin="0,0,19,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+
+            <!--Pivot item two-->
+            <PivotItem
+                x:Uid="PivotItem2"
+                Margin="19,14.5,0,0">
+                <!--Double line list no text wrapping-->
+                <ListView
+                    ItemsSource="{Binding}"
+                    x:Name="ToDoNotesList"
+                    IsItemClickEnabled="True"
+                    ItemClick="ItemView_ItemClick"
+                    Loaded="SecondPivot_Loaded"
+                    ContinuumNavigationTransitionInfo.ExitElementContainer="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,0,0,9.5">
+                                <TextBlock
+                                    Text="{Binding Title}"
+                                    Pivot.SlideInAnimationGroup="1"
+                                    CommonNavigationTransitionInfo.IsStaggerElement="True"
+                                    Style="{StaticResource ListViewItemTextBlockStyle}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+
+            <!--Pivot item three-->
+            <PivotItem
+                x:Uid="PivotItem3"
+                Margin="19,14.5,0,0" 
+                >
+                <!--Double line list no text wrapping-->
+                <ListView
+                    ItemsSource="{Binding}"
+                    x:Name="PhotoNotesList"
+                    IsItemClickEnabled="True"
+                    ItemClick="ItemView_ItemClick"
+                    Loaded="ThirdPivot_Loaded"
+                    ContinuumNavigationTransitionInfo.ExitElementContainer="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,0,0,9.5">
+                                <TextBlock
+                                    Text="{Binding Title}"
+                                    Pivot.SlideInAnimationGroup="1"
+                                    CommonNavigationTransitionInfo.IsStaggerElement="True"
+                                    Style="{StaticResource ListViewItemTextBlockStyle}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+        </Pivot>
+    </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar x:Name="CommandBar">
+            <AppBarButton x:Uid="MultipleSelectionAppBarButton" x:Name="MultipleSelectionAppBarButton" Icon="SelectAll" Click="MultipleSelectionAppBarButton_Click"/>
+            <AppBarButton x:Uid="AddAppBarButton" x:Name="AddAppBarButton" Icon="Add" Click="AddNoteBarButton_Click" />
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>
